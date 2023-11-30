@@ -4,13 +4,28 @@
 
     <div class="d-flex justify-content-evenly align-items-center">
       <div class="position-relative">
+        <!-- 拖曳功能開關 switch -->
+        <div class='position-absolute form-check form-switch'
+             style="width:200px;z-index:99999;transform: translateY(-45px);">
+          <input class='form-check-input'
+                 v-model="enabled"
+                 type='checkbox'
+                 id='demo1-enabled'>
+          <label class='form-check-label ms-4'
+                 for='demo1-enabled'>
+            {{ enabled?'開啟':'關閉' }} 拖曳功能
+          </label>
+        </div>
+
         <Draggable ref="draggableRef"
                    class="list-group"
                    item-key="id"
                    :list="data"
                    :disabled="!enabled"
                    chosen-class="active"
-                   animation="500">
+                   animation="500"
+                   @start="startDrag"
+                   @end="endDrag">
           <template #item="{element}">
             <div class="list-group-item user-select-none"
                  :class="enabled?'cursor-move':'cursor-default'"
@@ -67,6 +82,7 @@ const data = reactive([
   }
 ])
 const enabled = ref(true) // 是否啟用
+const dragging = ref(false) // 是否正在拖曳
 // const draggableRef = ref(null)
 const dataObject = reactive({
   key1: 'value1',
@@ -80,6 +96,27 @@ const jsonData = computed(() => { // eslint-disable-line
 onMounted(() => {
   // console.log(draggableRef.value)
 })
+
+function startDrag (e) { // eslint-disable-line
+  console.log('startDrag', e)
+  dragging.value = true
+}
+function endDrag (e) { // eslint-disable-line
+  console.log('endDrag', e)
+  dragging.value = false
+}
+
+// function checkMove (evt) { // eslint-disable-line
+//   console.log(evt)
+//   return (evt.draggedContext.element.name !== 'apple')
+// }
+// function onUpdate (updatedData) { // eslint-disable-line
+//   console.log('Updated Data:', updatedData)
+//   console.log(data)
+// }
+// function setTargetStyle (target) {
+//   console.log(target)
+// }
 
 </script>
 
