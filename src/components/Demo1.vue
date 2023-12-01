@@ -17,6 +17,7 @@
           </label>
         </div>
 
+        <!-- 拖曳元件 -->
         <Draggable ref="draggableRef"
                    class="list-group"
                    item-key="id"
@@ -24,8 +25,13 @@
                    :disabled="!enabled"
                    chosen-class="active"
                    animation="500"
-                   @start="startDrag"
-                   @end="endDrag">
+                   @start="handleStart"
+                   @end="handleEnd"
+                   @update="handleUpdate"
+                   @choose="handleChoose"
+                   @unchoose="handleUnchoose"
+                   @sort="handleSort"
+                   @move="handleMove">
           <template #item="{element}">
             <div class="list-group-item user-select-none"
                  :class="enabled?'cursor-move':'cursor-default'"
@@ -47,7 +53,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, onMounted } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import Draggable from 'vuedraggable'
 
 // data
@@ -84,39 +90,34 @@ const data = reactive([
 const enabled = ref(true) // 是否啟用
 const dragging = ref(false) // 是否正在拖曳
 // const draggableRef = ref(null)
-const dataObject = reactive({
-  key1: 'value1',
-  key2: 'value2'
-})
-const jsonData = computed(() => { // eslint-disable-line
-  // 將物件轉換為 JSON 字串
-  return JSON.stringify(dataObject, null, 2)
-})
 
 onMounted(() => {
   // console.log(draggableRef.value)
 })
 
-function startDrag (e) { // eslint-disable-line
-  console.log('startDrag', e)
+function handleStart (e) {
+  console.log('start事件(開始拖曳)', e)
   dragging.value = true
 }
-function endDrag (e) { // eslint-disable-line
-  console.log('endDrag', e)
+function handleEnd (e) {
+  console.log('end事件(拖曳結束)', e)
   dragging.value = false
 }
-
-// function checkMove (evt) { // eslint-disable-line
-//   console.log(evt)
-//   return (evt.draggedContext.element.name !== 'apple')
-// }
-// function onUpdate (updatedData) { // eslint-disable-line
-//   console.log('Updated Data:', updatedData)
-//   console.log(data)
-// }
-// function setTargetStyle (target) {
-//   console.log(target)
-// }
+function handleUpdate (e) {
+  console.log('update事件(在拖曳結束後觸發，提供了整個列表的新順序)', e)
+}
+function handleChoose (e) {
+  console.log('choose事件 (選擇了某個項目)', e)
+}
+function handleUnchoose (e) {
+  console.log('handleUnchoose事件 (取消選擇了某個項目)', e)
+}
+function handleSort (e) {
+  console.log('handleSort事件 (排序改變了)', e)
+}
+function handleMove (e) {
+  console.log('handleMove事件 (每移動一次排序就會觸發[回傳拖曳對象])', e)
+}
 
 </script>
 
