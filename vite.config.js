@@ -4,7 +4,7 @@ import { fileURLToPath, URL } from 'url'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/draggable/', //! 請輸入儲存庫名稱
+  base: '/vueDraggable/', //! 請輸入儲存庫名稱
   plugins: [vue()],
   resolve: {
     alias: [
