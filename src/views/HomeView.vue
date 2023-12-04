@@ -1,7 +1,7 @@
 <template>
   <div style="margin:50px;">
     <!-- 切換demo按鈕 -->
-    <ul class="d-flex align-items-center">
+    <ul class="d-flex align-items-center mb-15">
       <template v-for="btn in data" :key="btn.fileName">
         <li>
           <button type="button"
@@ -32,7 +32,7 @@ const data = reactive([
   },
   {
     fileName: 'Demo2',
-    name: 'Demo2',
+    name: '兩個可互相拖曳的data',
     component: ''
   }
 ])
