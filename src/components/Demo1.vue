@@ -32,7 +32,8 @@
                    @choose="handleChoose"
                    @unchoose="handleUnchoose"
                    @sort="handleSort"
-                   @move="handleMove">
+                   @move="handleMove"
+                   @change="handleChange">
           <template #item="{element}">
             <div class="list-group-item user-select-none"
                  :class="[enabled?'cursor-move':'cursor-default',element.className]"
@@ -154,22 +155,20 @@ const moveResult = ref({
 }) // move 事件結果
 
 onMounted(() => {
-  // console.log(draggableRef.value)
-
   tempDate.value = JSON.parse(JSON.stringify(data))
 })
 
 function handleStart (e) {
-  // console.log('start事件(開始拖曳)', e)
+  console.log('start事件(開始拖曳)', e)
   dragging.value = true
 }
 function handleEnd (e) {
-  // console.log('end事件(拖曳結束)', e)
+  console.log('end事件(拖曳結束)', e)
   dragging.value = false
   moveTarget.value = ''
 }
 function handleUpdate (e) {
-  // console.log('update事件(在拖曳結束後觸發，提供了整個列表的新順序)', e)
+  console.log('update事件(在拖曳結束後觸發，提供了整個列表的新順序)', e)
 
   updateResult.value = {
     newIndex: e.newIndex,
@@ -180,15 +179,15 @@ function handleUpdate (e) {
   tempDate.value = JSON.parse(JSON.stringify(data))
 }
 function handleChoose (e) {
-  // console.log('choose事件 (選擇了某個項目)', e)
+  console.log('choose事件 (選擇了某個項目)', e)
   moveTarget.value = data[e.oldDraggableIndex]
   currentDraggedItem.value = data[e.oldDraggableIndex]
 }
 function handleUnchoose (e) {
-  // console.log('handleUnchoose事件 (取消選擇了某個項目)', e)
+  console.log('handleUnchoose事件 (取消選擇了某個項目)', e)
 }
 function handleSort (e) {
-  // console.log('handleSort事件 (排序改變了)', e)
+  console.log('handleSort事件 (排序改變了)', e)
   isUpdateDemoShow.value = true
 }
 function handleMove (e) {
@@ -200,7 +199,9 @@ function handleMove (e) {
   moveResult.value.oldIndex = e.dragged.__draggable_context.index
   moveResult.value.newIndex = e.related.__draggable_context.index
 }
-
+function handleChange (e) {
+  console.log('change事件 (拖曳後的變化)', e)
+}
 </script>
 
 <style lang='scss' scope></style>
