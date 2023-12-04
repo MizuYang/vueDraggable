@@ -9,7 +9,7 @@
                   :class="btn.component===curComponent
                           ? 'btn-primary'
                           : 'btn-secondary'"
-                  @click="curComponent=btn.component">
+                  @click="changeComponent(btn)">
             {{ btn.name }}
           </button>
         </li>
@@ -40,14 +40,30 @@ const curComponent = ref('')
 
 onMounted(() => {
   getData()
-  // 預設顯示Demo1
-  curComponent.value = data[0].component
+
+  if (localStorage.component) {
+    // 從localStorage取得上次使用的component
+    const fileName = localStorage.component
+    const component = data.find(item => item.fileName === fileName).component
+    curComponent.value = component
+  } else {
+    // 預設顯示Demo1
+    curComponent.value = data[0].component
+    localStorage.setItem('component', 'Demo1')
+  }
+
+  console.log(localStorage.component)
 })
 
 function getData () {
   data.forEach(item => {
     item.component = defineAsyncComponent(() => import(`../components/${item.fileName}.vue`))
   })
+}
+function changeComponent ({ fileName, component }) {
+  curComponent.value = component
+
+  localStorage.setItem('component', fileName)
 }
 </script>
 
