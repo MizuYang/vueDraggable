@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row mb-10">
     <!-- 克隆軍團1 -->
     <div class="col-3">
       <h3 class="text-18 mb-4">克隆軍營 1</h3>
@@ -8,7 +8,7 @@
         :list="list1"
         :group="{ name: 'people', pull: configList1.pull, put: configList1.put }"
         @change="log"
-        item-key="name"
+        item-key="id"
       >
         <template #item="{ element }">
           <div class="list-group-item">
@@ -111,7 +111,7 @@
         :list="list2"
         group="people"
         @change="log"
-        item-key="name"
+        item-key="id"
       >
         <template #item="{ element }">
           <div class="list-group-item">
@@ -128,8 +128,8 @@
         class="dragArea list-group"
         :list="list3"
         :group="{ name: 'break', pull: false, put: configList3.put }"
-        @change="log"
-        item-key="name"
+        @change="handleList3Change"
+        item-key="id"
       >
         <template #item="{ element }">
           <div class="list-group-item cursor-not-allowed">
@@ -141,7 +141,7 @@
       <!-- 配置選項 -->
       <div class="mt-15">
         <!-- pull -->
-        <div class="mb-15">
+        <div>
           <h3 class="text-18 my-5">pull 配置</h3>
           <div class='form-check d-flex align-items-center'>
             <input class='form-check-input'
@@ -155,14 +155,14 @@
               開放被拖曳進來
             </label>
           </div>
-          <div class='form-check d-flex align-items-center'>
+          <div class='form-check align-items-stretch'>
             <input class='form-check-input'
                    type='radio'
                    name='configPullList2'
                    id='pullTrue2'
                    v-model="configList3.put"
-                   :value="''">
-            <label class='form-check-label ms-3'
+                   :value="false">
+            <label class='form-check-label'
                    for='pullTrue2'>
               關閉拖曳
             </label>
@@ -171,11 +171,18 @@
       </div>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-3"><Code :code="list1" /></div>
+    <div class="col-3"><Code :code="list2" /></div>
+    <div class="col-3"><Code :code="list3" /></div>
+  </div>
 </template>
 
 <script setup>
 import { reactive } from 'vue'
 import Draggable from 'vuedraggable'
+import Code from '@/components/Code.vue'
 
 const list1 = reactive([
   { name: '克隆人 1 號', id: 1 },
@@ -200,11 +207,23 @@ const configList1 = reactive({
   put: false
 })
 const configList3 = reactive({
-  put: ''
+  put: 'people'
+  // put: false
 })
 
 function log (evt) {
   window.console.log(evt)
+}
+function handleList3Change ({ added }) {
+  if (added?.element?.id) {
+    const itemId = added?.element?.id
+    const itemName = added?.element.name
+    const length = itemId + list1.length + list2.length + list3.length + 3
+
+    const idx = list3.findIndex(item => item.id === itemId)
+    list3[idx].name = `報廢的${itemName}`
+    list3[idx].id = length
+  }
 }
 
 </script>

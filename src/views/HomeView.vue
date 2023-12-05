@@ -3,7 +3,7 @@
     <!-- 切換demo按鈕 -->
     <ul class="d-flex align-items-center mb-15">
       <template v-for="btn in data" :key="btn.fileName">
-        <li>
+        <li class="me-2">
           <button type="button"
                   class="btn"
                   :class="btn.component===curComponent
