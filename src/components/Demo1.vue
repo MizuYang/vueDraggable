@@ -46,8 +46,7 @@
 
       <div class="px-10" style="background-color:#303030;">
         <!-- 程式程式碼區塊 -->
-        <highlightjs language="json"
-                     :code="JSON.stringify(data, null, 2)" />
+        <Code :code="data" />
       </div>
     </div>
 
@@ -108,6 +107,7 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
 import Draggable from 'vuedraggable'
+import Code from '@/components/Code.vue'
 
 // data
 const data = reactive([

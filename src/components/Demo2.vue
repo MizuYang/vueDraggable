@@ -54,16 +54,14 @@
       <div class="px-10" style="background-color:#303030;">
         <h3 class="text-light text-20 pt-5">data1</h3>
         <!-- 程式程式碼區塊 -->
-        <highlightjs language="json"
-                      :code="JSON.stringify(data1, null, 2)" />
+        <Code :code="data1" />
       </div>
     </div>
     <div class="col-3">
       <div class="px-10" style="background-color:#303030;">
         <h3 class="text-light text-20 pt-5">data2</h3>
         <!-- 程式程式碼區塊 -->
-        <highlightjs language="json"
-                      :code="JSON.stringify(data2, null, 2)" />
+        <Code :code="data2" />
       </div>
     </div>
   </div>
@@ -72,6 +70,7 @@
 <script setup>
 import { reactive, computed, watchEffect } from 'vue' // eslint-disable-line
 import Draggable from 'vuedraggable'
+import Code from '@/components/Code.vue'
 
 const data1 = reactive([
   { name: '金獨子', id: 1 },
