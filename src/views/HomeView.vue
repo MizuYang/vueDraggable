@@ -39,6 +39,11 @@ const data = reactive([
     fileName: 'Demo3',
     name: '克隆',
     component: ''
+  },
+  {
+    fileName: 'Demo4',
+    name: '使用icon拖曳',
+    component: ''
   }
 ])
 const curComponent = ref('')
