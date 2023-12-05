@@ -13,9 +13,14 @@
         group="people"
         @change="handleChange"
         itemKey="name"
+        filter=".disabledItem"
       >
         <template #item="{ element, index }">
-          <div class="list-group-item cursor-move">{{ index+1 }}. {{ element.name }}</div>
+          <div class="list-group-item"
+               :class="[hasItemsData1?'cursor-move':'cursor-not-allowed',
+                        element.className]">
+            {{ index+1 }}. {{ element.name }}
+          </div>
         </template>
       </Draggable>
     </div>
@@ -33,9 +38,14 @@
         group="people"
         @change="handleChange"
         itemKey="name"
+        filter=".disabledItem"
       >
         <template #item="{ element, index }">
-          <div class="list-group-item cursor-move">{{ index+1 }}. {{ element.name }}</div>
+          <div class="list-group-item cursor-move"
+               :class="[hasItemsData2?'cursor-move':'cursor-not-allowed',
+                        element.className]">
+            {{ index+1 }}. {{ element.name }}
+          </div>
         </template>
       </Draggable>
     </div>
@@ -60,7 +70,7 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { reactive, computed, watchEffect } from 'vue' // eslint-disable-line
 import Draggable from 'vuedraggable'
 
 const data1 = reactive([
@@ -75,14 +85,61 @@ const data2 = reactive([
   { name: '李吉永', id: 7 }
 ])
 
+// computed
+const hasItemsData1 = computed(() => data1.findIndex(item => item.id === -1) === -1)
+const hasItemsData2 = computed(() => data2.findIndex(item => item.id === -1) === -1)
+
 function addItem (data) {
   const number = data1.length + data2.length
   data.push({
     name: `新成員${number + 1}號`,
     id: number
   })
+
+  const delIdx = data.findIndex(item => item.id === -1)
+  if (delIdx !== -1) data.splice(delIdx, 1)
 }
-function handleChange (evt) {
-  console.log('@change', evt)
+function handleChange (e) {
+  console.log('@change', e)
+  const itemId = e?.added?.element?.id || e?.removed?.element?.id
+
+  // 判斷是 data1 還是 data2
+  if (data1.findIndex(item => item.id === itemId) !== -1) {
+    // data1
+    handleAdded(data1)
+    handleRemoved(data2) // 此處找到的是被刪除item移動到的新data,所以要再另一個data新增(無)
+  } else {
+    // data2
+    handleAdded(data2)
+    handleRemoved(data1) // 此處找到的是被刪除item移動到的新data,所以要再另一個data新增(無)
+  }
+
+  // 新增項目時，刪除"(無)"
+  function handleAdded (data) {
+    if (e?.added) {
+      deleteEmptyItem()
+
+      function deleteEmptyItem () {
+        const delIdx = data.findIndex(item => item.id === -1)
+        if (delIdx !== -1) data.splice(delIdx, 1)
+      }
+    }
+  }
+  // 刪除項目時, 若資料空的就顯示(無) 再使用 filter=".disabledItem" 來禁止拖曳
+  function handleRemoved (data) {
+    if (e?.removed) {
+      if (!data.length) {
+        data.push({
+          name: '(無)',
+          id: -1,
+          className: 'disabledItem'
+        })
+      }
+    }
+  }
 }
 </script>
+
+<style scoped>
+
+</style>
