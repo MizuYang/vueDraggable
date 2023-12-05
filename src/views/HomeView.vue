@@ -34,6 +34,11 @@ const data = reactive([
     fileName: 'Demo2',
     name: '兩個可互相拖曳的data',
     component: ''
+  },
+  {
+    fileName: 'Demo3',
+    name: '克隆',
+    component: ''
   }
 ])
 const curComponent = ref('')
