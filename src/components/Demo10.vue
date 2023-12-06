@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-8">
-      <h3>Draggable with header</h3>
+      <h3 class="text-18 mb-10">Header slot</h3>
 
       <div class="row">
         <div class="col-6">

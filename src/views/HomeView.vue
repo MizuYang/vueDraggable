@@ -2,7 +2,7 @@
   <div style="margin:50px;">
     <!-- 切換demo按鈕 -->
     <ul class="d-flex align-items-center mb-15">
-      <template v-for="btn in data" :key="btn.fileName">
+      <template v-for="(btn,idx) in data" :key="btn.fileName">
         <li class="me-2">
           <button type="button"
                   class="btn"
@@ -10,7 +10,7 @@
                           ? 'btn-primary'
                           : 'btn-secondary'"
                   @click="changeComponent(btn)">
-            {{ btn.name }}
+           {{ idx+1 }}. {{ btn.name }}
           </button>
         </li>
       </template>
