@@ -59,6 +59,11 @@ const data = reactive([
     fileName: 'Demo7',
     name: '表格表頭拖曳',
     component: ''
+  },
+  {
+    fileName: 'Demo8',
+    name: '摺疊拖曳',
+    component: ''
   }
 ])
 const curComponent = ref('')
