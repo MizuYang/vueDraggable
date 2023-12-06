@@ -9,6 +9,7 @@
       </h3>
       <Draggable
         class="list-group"
+        :scroll="true"
         :list="data1"
         group="people"
         @change="handleChange"
