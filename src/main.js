@@ -5,6 +5,9 @@ import { createPinia } from 'pinia'
 
 import 'bootstrap'
 
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+
 import App from './App.vue'
 
 import hljs from 'highlight.js/lib/core'
@@ -22,5 +25,6 @@ const app = createApp(App)
 app.use(router)
 app.use(pinia)
 app.use(hljsVuePlugin)
+app.use(ElementPlus)
 
 app.mount('#app')
