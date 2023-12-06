@@ -69,6 +69,11 @@ const data = reactive([
     fileName: 'Demo9',
     name: 'Footer slot',
     component: ''
+  },
+  {
+    fileName: 'Demo10',
+    name: 'Header slot',
+    component: ''
   }
 ])
 const curComponent = ref('')
