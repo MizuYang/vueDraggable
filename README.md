@@ -1,13 +1,49 @@
-- Vue3 Vite 模板
-  - Vue-Router
-  - Pinia
-  - Bootstrap5
-  - ESLint-standard
-  - Axios
+<a href="https://mizuyang.github.io/form-auto-save/#/">Demo</a>
 
-
-- 記得將儲存庫名稱寫入 (搜尋: 儲存庫名稱)
-  - vite.config.js
-    - 靜態頁面路徑設置
-  - deploy.sh
-    - 自動部署指令：.\deploy.sh
+- Demo1 單個data上下拖曳
+  - 拖曳屬性
+    - :list
+    - item-key
+    - :disabled
+    - chosen-class
+    - ghost-class
+    - animation
+  - 事件
+    - @start
+    - @end
+    - @update
+    - @choose
+    - @unchoose
+    - @sort
+    - @move
+    - @change
+  - 取得拖曳狀態
+  - 拖曳物件樣式
+- Demo2 兩個data互相拖曳
+  - 拖曳屬性
+    - group
+    - filter
+    - scroll
+  - 功能
+    - 兩個區塊可互相拖曳, 拖曳到該 data 沒 item 時會顯示 (無), 若有 item 時, (無) 會消失
+    - 可新增 item
+- Demo3 克隆
+  - 拖曳屬性
+    - :group="{ name: '分組名稱', pull: false, put: false }"
+  - 功能
+    - 可動態更改 group 的 pull、put 配置
+    - 拖曳到 "機器人墳場"時, 名稱會改為 "報廢的${name}", 
+      - 若是克隆的 item 被拖曳到 "機器人墳場", 原始 item 也會變成 "報廢的${name}" 唷
+- Demo4 使用 icon 拖曳
+  - 拖曳屬性
+    - tag
+    - handle
+  - 功能
+    - 只有 icon 可以拖曳
+- Demo5 Transition 漸變效果
+- Demo6 表格拖曳
+- Demo7 表格的表頭拖曳
+- Demo8 摺疊拖曳
+- Demo9 Footer slot
+- Demo10 Header slot
+- Demo11 兩個 slot 清單互相拖曳
