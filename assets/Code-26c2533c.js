@@ -1,0 +1,1 @@
+import{A as t,p as c,b as a,g as r,u as l}from"./index-6884f879.js";const i={__name:"Code",props:["code"],setup(o){const e=o,{code:s}=t(e);return(p,u)=>{const n=c("highlightjs");return a(),r(n,{language:"json",code:JSON.stringify(l(s),null,2)},null,8,["code"])}}};export{i as default};
