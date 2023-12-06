@@ -16,7 +16,7 @@
               key="dragggable2"
               :list="list"
               v-bind="dragOptions"
-              item-key="order"
+              item-key="id"
             >
               <template #item="{ element }">
                 <li class="list-group-item">
